@@ -1,4 +1,4 @@
-# ☁️ GCP Pipeline v2 – Local → GCS → BigQuery → Streamlit
+# ☁️ GCP Pipeline – Local → GCS → BigQuery → Streamlit
 
 **Nouveautés** : DimDate, SCD2, onglet Exports (BQ→GCS & CSV), squelette **dbt**, **Dockerfile** & **docker-compose**, export **ZIP** depuis l'app.
 
