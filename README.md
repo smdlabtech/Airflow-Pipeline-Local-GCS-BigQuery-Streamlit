@@ -1,4 +1,4 @@
-# ☁️ GCP Pipeline – Local → GCS → BigQuery → Streamlit
+# ☁️ GCP Pipeline – Local → GCS → BigQuery → DBT → Streamlit
 
 **Nouveautés** : DimDate, SCD2, onglet Exports (BQ→GCS & CSV), squelette **dbt**, **Dockerfile** & **docker-compose**, export **ZIP** depuis l'app.
 
@@ -44,7 +44,6 @@ dbt debug && dbt run && dbt test
 - BQ: BigQuery Data Editor / Job User, etc.
 
 
----
 ### Defaults utilisés pour ce template
 - PROJECT_ID: `bq-small-corp`
 - REGION (GCS): `europe-west1`
