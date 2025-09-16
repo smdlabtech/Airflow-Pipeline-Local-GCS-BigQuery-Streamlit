@@ -1,0 +1,13 @@
+# dbt/profiles.example.yml
+gcp_pipeline_v2:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: YOUR_PROJECT_ID
+      dataset: demo_dw
+      location: EU
+      threads: 4
+      timeout_seconds: 300
+      priority: interactive

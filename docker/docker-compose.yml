@@ -1,0 +1,18 @@
+# docker/docker-compose.yml
+version: "3.9"
+services:
+  streamlit:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/.gcp/sa.json  # si clé de service
+    volumes:
+      - ../:/app
+      - ../.gcp:/app/.gcp
+    command: ["streamlit","run","app.py","--server.port=8501","--server.address=0.0.0.0"]
+
+# Optionnel: stack Airflow officielle (lourde) à ajouter si besoin
+# https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html

@@ -1,0 +1,14 @@
+# dbt/dbt_project.yml
+name: gcp_pipeline_v2
+version: 1.0.0
+profile: gcp_pipeline_v2
+model-paths: ["models"]
+models:
+  gcp_pipeline_v2:
+    +materialized: table
+    staging:
+      +schema: staging
+    warehouse:
+      +schema: warehouse
+    marts:
+      +schema: marts
