@@ -1,5 +1,4 @@
-
-# ☁️ GCP Pipeline – Local → GCS → BigQuery → DBT → Streamlit
+# ☁️ GCP Pipeline : Local Data → GCS → BigQuery → DBT → Streamlit
 
 **Nouveautés** : DimDate, SCD2, onglet Exports (BQ→GCS & CSV), squelette **dbt**, **Dockerfile** & **docker-compose**, export **ZIP** depuis l'app.
 
@@ -27,6 +26,74 @@ gcloud config get-value project
 
 Ces credentials sont stockés automatiquement (Windows : `%APPDATA%\gcloud\application_default_credentials.json`)  
 et seront utilisés par la librairie `google-cloud-bigquery` et `google-cloud-storage`.
+
+---
+
+### ⚙️ Commandes optionnelles de dépannage
+
+#### 🟢 Solution 2 : Vérifier le projet GCP
+```bash
+# Vérifiez le projet configuré
+gcloud config get-value project
+
+# Si nécessaire, changez le projet
+gcloud config set project VOTRE_PROJECT_ID
+```
+
+#### 🟢 Solution 3 : Vérifier les permissions
+Assurez-vous que :
+- Le projet GCP existe  
+- Vous avez les droits **BigQuery Admin** et **Storage Admin**  
+- Votre compte a les permissions nécessaires  
+
+#### 🟢 Solution 4 : Utiliser un service account (production)
+Pour la production, utilisez un fichier de service account :
+
+```python
+from google.oauth2 import service_account
+from google.cloud import bigquery
+
+credentials = service_account.Credentials.from_service_account_file(
+    'chemin/vers/votre/service-account-key.json',
+    scopes=["https://www.googleapis.com/auth/cloud-platform"]
+)
+client = bigquery.Client(credentials=credentials, project=project_id)
+```
+
+📋 **Étapes de résolution recommandées**
+```bash
+# 1) Authentification locale
+gcloud auth application-default login
+
+# 2) Vérifier l’authentification
+gcloud auth list
+
+# 3) Configurer le projet par défaut
+gcloud config set project bq-small-corp
+
+# 4) Relancer l'application
+streamlit run app.py
+```
+
+🔧 **Pour le déploiement Docker**
+Si vous utilisez Docker, montez vos credentials :
+```yaml
+# docker-compose.yml
+volumes:
+  - ~/.config/gcloud:/root/.config/gcloud  # Pour les credentials ADC
+  # ou
+  - ./service-account-key.json:/app/service-account-key.json  # Pour un service account
+```
+
+💡 **Bonnes pratiques**
+- Développement local : utilisez `gcloud auth application-default login`  
+- Environnements conteneurisés : utilisez des service accounts  
+- Production : privilégiez **Workload Identity Federation** ou des secrets managés  
+
+ℹ️ Cette erreur est normale lors de la première configuration d'une application GCP.  
+Une fois l'authentification configurée, elle disparaît. ✅
+
+---
 
 ### ▶️ Lancer l'application
 ```bash
