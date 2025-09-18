@@ -1,0 +1,28 @@
+name: ci-build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      PROJECT: bq-small-corp
+      REGION: europe-west1
+      REPO: apps
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ci-cd-sa@${{ env.PROJECT }}.iam.gserviceaccount.com
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: gcloud auth configure-docker "${{ env.REGION }}-docker.pkg.dev" -q
+      - name: Build & push Streamlit
+        run: |
+          docker build -t "${REGION}-docker.pkg.dev/${PROJECT}/${REPO}/gcp-pipeline:latest" -f docker/Dockerfile.streamlit .
+          docker push  "${REGION}-docker.pkg.dev/${PROJECT}/${REPO}/gcp-pipeline:latest"
+      - name: Build & push Worker
+        run: |
+          docker build -t "${REGION}-docker.pkg.dev/${PROJECT}/${REPO}/bq-loader:latest" workers/loader
+          docker push  "${REGION}-docker.pkg.dev/${PROJECT}/${REPO}/bq-loader:latest"
