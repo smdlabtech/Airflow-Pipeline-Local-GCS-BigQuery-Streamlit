@@ -14,9 +14,9 @@ from modules import (
     tab_export_project
 )
 
-st.set_page_config(page_title="GCP Pipeline v2 – Local → GCS → BigQuery", page_icon="☁️", layout="wide")
+st.set_page_config(page_title="GCP Pipeline – Local → GCS → BigQuery", page_icon="☁️", layout="wide")
 
-st.title("☁️ GCP Pipeline v2 – Local → GCS → BigQuery → Streamlit")
+st.title("☁️ GCP Pipeline – Local → GCS → BigQuery → Streamlit")
 st.caption("Project: bq-small-corp | Region (GCS): europe-west1 | BQ Location: EU. Local → GCS → BigQuery → Viz (SCD2, DimDate, dbt, Docker, Airflow).")
 
 tabs = st.tabs([

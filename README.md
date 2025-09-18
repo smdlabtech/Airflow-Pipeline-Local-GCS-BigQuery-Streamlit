@@ -1,3 +1,4 @@
+
 # ☁️ GCP Pipeline – Local → GCS → BigQuery → DBT → Streamlit
 
 **Nouveautés** : DimDate, SCD2, onglet Exports (BQ→GCS & CSV), squelette **dbt**, **Dockerfile** & **docker-compose**, export **ZIP** depuis l'app.
@@ -6,10 +7,29 @@
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+```
 
+### 🔑 Authentification GCP (Option A – Application Default Credentials)
+L’application utilise les **Application Default Credentials (ADC)** de GCP.  
+Configure-les une fois avec le SDK Google Cloud :
+
+```bash
+# Connecter ton compte Google et créer les credentials ADC
 gcloud auth application-default login
-gcloud config set project <PROJECT_ID>
 
+# Définir ton projet par défaut
+gcloud config set project bq-small-corp
+
+# (Optionnel) Vérifier que tout est bien configuré
+gcloud auth application-default print-access-token
+gcloud config get-value project
+```
+
+Ces credentials sont stockés automatiquement (Windows : `%APPDATA%\gcloud\application_default_credentials.json`)  
+et seront utilisés par la librairie `google-cloud-bigquery` et `google-cloud-storage`.
+
+### ▶️ Lancer l'application
+```bash
 streamlit run app.py
 ```
 
@@ -42,7 +62,6 @@ dbt debug && dbt run && dbt test
 ## ⚠️ Droits requis
 - GCS: Storage Object Admin (à restreindre finement en prod)
 - BQ: BigQuery Data Editor / Job User, etc.
-
 
 ### Defaults utilisés pour ce template
 - PROJECT_ID: `bq-small-corp`
