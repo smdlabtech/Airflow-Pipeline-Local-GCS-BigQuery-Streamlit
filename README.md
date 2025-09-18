@@ -1,6 +1,6 @@
 # ☁️ GCP Pipeline : Local Data → GCS → BigQuery → DBT → Streamlit
 
-**Nouveautés** : DimDate, SCD2, onglet Exports (BQ→GCS & CSV), squelette **dbt**, **Dockerfile** & **docker-compose**, export **ZIP** depuis l'app.
+🎉**Nouveautés** : DimDate, SCD2, onglet Exports (BQ→GCS & CSV), squelette **dbt**, **Dockerfile** & **docker-compose**, export **ZIP** depuis l'app.
 
 ## 🚀 Démarrage local
 ```bash
