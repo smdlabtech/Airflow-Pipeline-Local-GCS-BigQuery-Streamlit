@@ -29,6 +29,7 @@ et seront utilisés par la librairie `google-cloud-bigquery` et `google-cloud-st
 
 ---
 
+
 ### ⚙️ Commandes optionnelles de dépannage
 
 #### 🟢 Solution 2 : Vérifier le projet GCP
