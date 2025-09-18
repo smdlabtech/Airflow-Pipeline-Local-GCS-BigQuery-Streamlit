@@ -1,0 +1,5 @@
+customer_id,first_name,last_name,email,country
+1,Alice,Martin,alice@example.com,FR
+2,Bob,Durand,bob@example.com,FR
+3,Charlie,Petit,charlie@example.com,BE
+4,Diana,Lemoine,diana@example.com,DE
